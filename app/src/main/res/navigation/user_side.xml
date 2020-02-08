@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/user_side"
+    app:startDestination="@id/homeUserSide">
+
+    <fragment
+        android:id="@+id/homeUserSide"
+        android:name="com.example.craterradar.HomeUserSide"
+        android:label="Home Page"
+        tools:layout="@layout/fragment_home_user_side" />
+</navigation>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginPage">
+
+    <fragment
+        android:id="@+id/loginPage"
+        android:name="com.example.craterradar.LoginPage"
+        android:label="fragment_login_page"
+        tools:layout="@layout/fragment_login_page" >
+        <action
+            android:id="@+id/action_loginPage_to_forgetPassFrag"
+            app:destination="@id/forgetPassFrag" />
+        <action
+            android:id="@+id/action_loginPage_to_signupFrag"
+            app:destination="@id/signupFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgetPassFrag"
+        android:name="com.example.craterradar.ForgetPassFrag"
+        android:label="Forget Password"
+        tools:layout="@layout/fragment_forget_pass" />
+    <fragment
+        android:id="@+id/signupFrag"
+        android:name="com.example.craterradar.SignupFrag"
+        android:label="fragment_signup"
+        tools:layout="@layout/fragment_signup" />
+</navigation>

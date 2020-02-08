@@ -1,0 +1,26 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <style name="ThemeForCraterRadar" parent="Theme.Design.Light.NoActionBar">
+        <item name="android:fontFamily" >@font/lucidagrande</item>
+        <item name="colorControlNormal">@color/PrimaryFontColor</item>
+        <item name="colorPrimary">#123233</item>
+        <item name="colorAccent">#71E2E2</item>
+    </style>
+    <!-- Theme text style for Nav Drawer -->
+    <style name="NavDrawerTexApptStyle" parent="TextAppearance.AppCompat.Menu">
+        <item name="android:fontFamily">@font/lucidagrande</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+    <!-- Theme for Nav Drawer -->
+    <style name="NavigationTheme" parent="AppTheme">
+        <item name="listPreferredItemHeightSmall">55dp</item><!-- menu item height- vary as u need -->
+    </style>
+
+</resources>

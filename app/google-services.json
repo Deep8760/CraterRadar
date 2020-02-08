@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "403329848291",
+    "firebase_url": "https://craterradar.firebaseio.com",
+    "project_id": "craterradar",
+    "storage_bucket": "craterradar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:403329848291:android:76a82d278b26df5e2986d6",
+        "android_client_info": {
+          "package_name": "com.example.craterradar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "403329848291-lukqt5v7rv2pj3fheuk5pnv8016jhhtp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.craterradar",
+            "certificate_hash": "825ea9d1eba3f726050c616e5e586bb33360a27c"
+          }
+        },
+        {
+          "client_id": "403329848291-7m7cikchfgblvlp062sdfgk379ifdo90.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7ytRgyOUk9SdkW97bWg_ZHIXoDZxZgmI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "403329848291-7m7cikchfgblvlp062sdfgk379ifdo90.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
