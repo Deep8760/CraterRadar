@@ -88,7 +88,7 @@ public class SignupFrag extends Fragment implements View.OnClickListener{
         name = view.findViewById(R.id.name_layout);
         email = view.findViewById(R.id.email_layout);
         phoneNo = view.findViewById(R.id.phone_layout);
-        password = view.findViewById(R.id.password_layout);
+        password = view.findViewById(R.id.password_editProfile);
         confirm = view.findViewById(R.id.confirm_password_layout);
         progressBar = view.findViewById(R.id.signup_progress);
         progressBar.setVisibility(View.GONE);
@@ -114,7 +114,6 @@ public class SignupFrag extends Fragment implements View.OnClickListener{
         }
         else if(v == Signup)
         {
-
             user_name = name.getEditText().getText().toString().trim();
             user_email = email.getEditText().getText().toString().trim();
             user_phone = phoneNo.getEditText().getText().toString().trim();
@@ -273,9 +272,9 @@ public class SignupFrag extends Fragment implements View.OnClickListener{
                     image_uri = data.getData();
                     ProfileImage.setImageURI(image_uri);
                     getFileExtention(image_uri);
+                    //Log.i("ImageURI",image_uri.toString());
                     break;
             }
-
         }
     }
 
@@ -335,9 +334,7 @@ public class SignupFrag extends Fragment implements View.OnClickListener{
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
             return encodedImage;
-
         }
 
     }

@@ -1,14 +1,300 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".HomeUserSide">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/home_map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true" />
 
-</FrameLayout>
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/sv_location"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:hint="Search Place"
+            android:layout_gravity="top|start"
+            android:elevation="6dp"
+            android:layout_margin="30dp"
+            app:searchIcon="@drawable/ic_search_black_24dp"
+            app:defaultQueryHint="Search your destination"
+            android:background="@drawable/round_edittext"
+            android:backgroundTint="@color/AppSecondary"
+            android:iconifiedByDefault="false"
+            android:animationCache="false"
+            android:animateLayoutChanges="true"/>
+
+    <ProgressBar
+        android:id="@+id/direction_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@color/AppPrimary"
+        android:progressBackgroundTint="@color/AppSecondary"
+        android:visibility="gone"
+        android:layout_gravity="center"/>
+    <Button
+        android:id="@+id/show_detail_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
+        android:text="Show Route Info"
+        android:background="@drawable/round_edittext"
+        android:backgroundTint="@color/AppPrimary"
+        android:textColor="@color/PrimaryFontColor"
+        android:textSize="16sp"/>
+    <!--<androidx.core.widget.NestedScrollView
+        android:id="@+id/bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_sheet_shape"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        android:paddingBottom="20dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:src="@drawable/uperror"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <LinearLayout
+                android:id="@+id/main_linear_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView2"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:id="@+id/duration_route_logo"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/clock"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/duration_route_info"
+                        android:layout_width="95dp"
+                        android:layout_height="65dp"
+                        android:fontFamily="@font/lucidagrande"
+                        android:hint="Duration"
+                        android:justificationMode="none"
+                        android:text=""
+                        android:textAlignment="center"
+                        android:textColor="@color/AppPrimary"
+                        android:textColorHint="@color/AppPrimary"
+                        android:textSize="16sp"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:id="@+id/distance_route_logo"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/road"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/distance_route_info"
+                        android:layout_width="95dp"
+                        android:layout_height="65dp"
+                        android:fontFamily="@font/lucidagrande"
+                        android:hint="Distance"
+                        android:justificationMode="none"
+                        android:text=""
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:textColor="@color/AppPrimary"
+                        android:textColorHint="@color/AppPrimary"
+                        android:textSize="16sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:id="@+id/no_of_pothole_route_logo"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/pothole"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/no_of_pothole_route_info"
+                        android:layout_width="95dp"
+                        android:layout_height="65dp"
+                        android:fontFamily="@font/lucidagrande"
+                        android:hint="No of Pothole"
+                        android:justificationMode="none"
+                        android:text=""
+                        android:textAlignment="center"
+                        android:textColor="@color/AppPrimary"
+                        android:textColorHint="@color/AppPrimary"
+                        android:textSize="16sp"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+            </LinearLayout>
+            <View
+                android:id="@+id/divider"
+                android:layout_width="0dp"
+                android:layout_height="3dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:background="@color/AppPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_linear_1" />
+
+            <LinearLayout
+                android:id="@+id/pothole_info_route"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp">
+                <LinearLayout
+                    android:id="@+id/duration_pothole_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:padding="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Next pothole :"
+                        android:fontFamily="@font/lucidagrande"
+                        android:hint="Duration"
+                        android:justificationMode="none"
+                        android:textAlignment="center"
+                        android:textColor="@color/AppPrimary"
+                        android:textColorHint="@color/AppPrimary"
+                        android:textSize="20sp"/>
+                    <TextView
+                        android:id="@+id/next_pothole_duration_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:fontFamily="@font/lucidagrande"
+                        android:hint="Duration"
+                        android:justificationMode="none"
+                        android:textAlignment="center"
+                        android:textColor="@color/AppPrimary"
+                        android:textColorHint="@color/AppPrimary"
+                        android:textSize="20sp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/distance_pothole_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:padding="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pothole Distance :"
+                        android:fontFamily="@font/lucidagrande"
+                        android:justificationMode="none"
+                        android:textAlignment="center"
+                        android:textColor="@color/AppPrimary"
+                        android:textColorHint="@color/AppPrimary"
+                        android:textSize="20sp"/>
+                    <TextView
+                        android:id="@+id/next_pothole_distance_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:fontFamily="@font/lucidagrande"
+                        android:hint="Distance"
+                        android:justificationMode="none"
+                        android:textAlignment="center"
+                        android:textColor="@color/AppPrimary"
+                        android:textColorHint="@color/AppPrimary"
+                        android:textSize="20sp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/danger_pothole_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:padding="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Danger Level :"
+                        android:fontFamily="@font/lucidagrande"
+                        android:hint="Duration"
+                        android:textAlignment="center"
+                        android:textColor="@color/AppPrimary"
+                        android:textColorHint="@color/AppPrimary"
+                        android:textSize="20sp"/>
+                    <TextView
+                        android:id="@+id/danger_level_pothole_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:fontFamily="@font/lucidagrande"
+                        android:hint="Danger level"
+                        android:textAlignment="center"
+                        android:textColor="@color/AppPrimary"
+                        android:textColorHint="@color/AppPrimary"
+                        android:textSize="20sp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/more_details_pothole_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:background="@android:color/transparent"
+                android:text="See More Details About Pothole"
+                android:fontFamily="@font/lucidagrande"
+                android:textSize="16sp"
+                android:textColor="@color/AppPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pothole_info_route"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:shadowColor="@android:color/transparent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>-->
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

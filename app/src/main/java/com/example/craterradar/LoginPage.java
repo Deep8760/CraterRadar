@@ -132,7 +132,7 @@ public class LoginPage extends Fragment implements View.OnClickListener {
                 else
                 {
                     Toast.makeText(getActivity().getApplicationContext(),"There is some Problem. Please Try Again!", Toast.LENGTH_LONG).show();
-                    updateUI(null);
+                    //updateUI(null);
                 }
 
             }

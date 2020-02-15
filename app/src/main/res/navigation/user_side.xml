@@ -9,5 +9,18 @@
         android:id="@+id/homeUserSide"
         android:name="com.example.craterradar.HomeUserSide"
         android:label="Home Page"
-        tools:layout="@layout/fragment_home_user_side" />
+        tools:layout="@layout/fragment_home_user_side" >
+        <action
+            android:id="@+id/action_homeUserSide_to_edit_profile_frag"
+            app:destination="@id/edit_profile_frag" />
+    </fragment>
+    <fragment
+        android:id="@+id/edit_profile_frag"
+        android:name="com.example.craterradar.Edit_profile_frag"
+        android:label="Edit Profile"
+        tools:layout="@layout/fragment_edit_profile_frag" >
+        <action
+            android:id="@+id/action_edit_profile_frag_to_homeUserSide"
+            app:destination="@id/homeUserSide" />
+    </fragment>
 </navigation>

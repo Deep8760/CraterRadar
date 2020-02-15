@@ -13,7 +13,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -123,7 +125,8 @@ public class UserSide extends AppCompatActivity implements NavigationView.OnNavi
                 Toast.makeText(this,"home",Toast.LENGTH_LONG).show();
                 break;
             case R.id.edit_profile_nav_drawer:
-                Toast.makeText(this,"edit Profile",Toast.LENGTH_LONG).show();
+                //Toast.makeText(this,"edit Profile",Toast.LENGTH_LONG).show();
+                navController.navigate(R.id.action_homeUserSide_to_edit_profile_frag);
                 break;
             case R.id.list_of_added_pothole_nav_draw:
                 Toast.makeText(this,"List of Added Pothole",Toast.LENGTH_LONG).show();
@@ -143,5 +146,24 @@ public class UserSide extends AppCompatActivity implements NavigationView.OnNavi
                 break;
         }
         return false;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu,menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.add_pothole:
+                Intent i = new Intent(UserSide.this,AddPotholeActivity.class);
+                startActivity(i);
+                finish();
+                break;
+        }
+        //Toast.makeText(this,msg+" is checked!",Toast.LENGTH_LONG).show();
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -12,6 +12,7 @@
         <item name="colorControlNormal">@color/PrimaryFontColor</item>
         <item name="colorPrimary">#123233</item>
         <item name="colorAccent">#71E2E2</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
     <!-- Theme text style for Nav Drawer -->
     <style name="NavDrawerTexApptStyle" parent="TextAppearance.AppCompat.Menu">
@@ -21,6 +22,19 @@
     <!-- Theme for Nav Drawer -->
     <style name="NavigationTheme" parent="AppTheme">
         <item name="listPreferredItemHeightSmall">55dp</item><!-- menu item height- vary as u need -->
+    </style>
+
+    <style name="TextFieldTheme" parent="Widget.AppCompat.TextView">
+        <item name="android:background">@drawable/round_edittext</item>
+        <item name="android:textColor">@color/SecondaryFontcolor</item>
+        <item name="android:fontFamily">@font/lucidagrande</item>
+        <item name="android:textColorHint">@color/SecondaryFontcolor</item>
+    </style>
+    <style name="DropDownTheme" parent="Widget.AppCompat.Spinner">
+        <item name="android:background">@drawable/round_edittext</item>
+        <item name="android:textColor">@color/SecondaryFontcolor</item>
+        <item name="android:fontFamily">@font/lucidagrande</item>
+        <item name="android:textColorHint">@color/SecondaryFontcolor</item>
     </style>
 
 </resources>
