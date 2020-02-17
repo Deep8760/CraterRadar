@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">CraterRadar</string>
-    <string name="map_key" translatable="false">AIzaSyCeDCX845f9rdcke1j3lmXwKpyaAbK5Dus</string>
+    <string name="KEY_MAP" translatable="false">AIzaSyCeDCX845f9rdcke1j3lmXwKpyaAbK5Dus</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="about_app">Crater Radar is a pothole detection android app.User can register ,login and if user forget password,user can reset the password.In app user can search for destination and on google map user can see route info like reach time and distance.Additionally, User can also see no of Pothole on that route. And If there is any new pothole availanle user can add in database.While adding pothole,Picture and danger levl is necessory. </string>
 
 </resources>

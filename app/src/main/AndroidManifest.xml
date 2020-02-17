@@ -18,27 +18,30 @@
         tools:node="replace" /> <!-- FOR LOCATION SERVICES -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_GPS"/>
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo_name"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".AddPotholeActivity"
+        android:theme="@style/AppTheme"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true">
+        <activity android:name=".UserSide.AddPotholeActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" >
 
         </activity>
         <activity
-            android:name=".RouteInfoSheet"
+            android:name=".UserSide.RouteInfoSheet"
             android:theme="@style/Theme.AppCompat.NoActionBar" /> <!-- Google Map Matadata -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/map_key" />
+            android:value="@string/KEY_MAP" />
 
         <activity
-            android:name=".UserSide"
+            android:name=".UserSide.UserSide"
             android:theme="@style/ThemeForCraterRadar" />
         <activity
             android:name=".Main2Activity"

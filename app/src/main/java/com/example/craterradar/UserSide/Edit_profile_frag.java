@@ -1,4 +1,4 @@
-package com.example.craterradar;
+package com.example.craterradar.UserSide;
 
 
 import android.Manifest;
@@ -32,6 +32,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.craterradar.Main2Activity;
+import com.example.craterradar.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -97,10 +99,11 @@ public class Edit_profile_frag extends Fragment implements View.OnClickListener{
         firebaseAuth = FirebaseAuth.getInstance();
         uid = firebaseAuth.getCurrentUser().getUid();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference().child("Users");
+        databaseReference = firebaseDatabase.getReference();
 
 
         getDataFromDB();
+
         profilePic.setOnClickListener(this);
         SaveBtn.setOnClickListener(this);
 
@@ -119,20 +122,19 @@ public class Edit_profile_frag extends Fragment implements View.OnClickListener{
     private void getDataFromDB()
     {
         progressBar.setVisibility(View.VISIBLE);
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists())
                 {
                     progressBar.setVisibility(View.GONE);
-                    for(DataSnapshot ds : dataSnapshot.getChildren())
-                    {
-                        name.setText(ds.child("Fullname").getValue().toString());
-                        email.setText(ds.child("Email").getValue().toString());
-                        phone.setText(ds.child("Phoneno").getValue().toString());
-                        String imageURL = ds.child("ProfileImagePath").getValue().toString();
+
+                        //Log.e("Datasnapshot", );
+                        name.setText(dataSnapshot.child(uid).child("Fullname").getValue().toString());
+                        email.setText(dataSnapshot.child(uid).child("Email").getValue().toString());
+                        phone.setText(dataSnapshot.child(uid).child("Phoneno").getValue().toString());
+                        String imageURL = dataSnapshot.child(uid).child("ProfileImagePath").getValue().toString();
                         Picasso.get().load(imageURL).into(profilePic);
-                    }
                 }
             }
 
@@ -213,7 +215,7 @@ public class Edit_profile_frag extends Fragment implements View.OnClickListener{
                 else
                 {
                     FirebaseAuth.getInstance().signOut();
-                    Intent i = new Intent(context,Main2Activity.class);
+                    Intent i = new Intent(context, Main2Activity.class);
                     startActivity(i);
                     getActivity().finish();
                 }

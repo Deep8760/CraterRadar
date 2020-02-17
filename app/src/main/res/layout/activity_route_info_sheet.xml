@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bottom_sheet_shape"
     android:orientation="vertical"
-    tools:context=".RouteInfoSheet"
+    tools:context=".UserSide.RouteInfoSheet"
     android:id="@+id/layout_bottom">
 
     <androidx.constraintlayout.widget.ConstraintLayout

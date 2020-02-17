@@ -1,4 +1,4 @@
-package com.example.craterradar;
+package com.example.craterradar.UserSide;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,17 +9,19 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.craterradar.Main2Activity;
+import com.example.craterradar.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -122,30 +124,82 @@ public class UserSide extends AppCompatActivity implements NavigationView.OnNavi
         switch (SelectedItem)
         {
             case R.id.home_nav_drawer:
-                Toast.makeText(this,"home",Toast.LENGTH_LONG).show();
+                HomeDrawerLayout.closeDrawers();
+                //Toast.makeText(this,"home",Toast.LENGTH_LONG).show();
                 break;
             case R.id.edit_profile_nav_drawer:
                 //Toast.makeText(this,"edit Profile",Toast.LENGTH_LONG).show();
                 navController.navigate(R.id.action_homeUserSide_to_edit_profile_frag);
                 break;
             case R.id.list_of_added_pothole_nav_draw:
-                Toast.makeText(this,"List of Added Pothole",Toast.LENGTH_LONG).show();
+                navController.navigate(R.id.action_homeUserSide_to_list_of_All_Added_Pothole_frag);
+                //Toast.makeText(this,"List of Added Pothole",Toast.LENGTH_LONG).show();
                 break;
             case R.id.route_history_nav_draw:
-                Toast.makeText(this,"Route History",Toast.LENGTH_LONG).show();
+                navController.navigate(R.id.action_homeUserSide_to_route_History_Frag);
+                //Toast.makeText(this,"Route History",Toast.LENGTH_LONG).show();
                 break;
             case R.id.delete_account_nav_draw:
-                Toast.makeText(this,"Delete Account",Toast.LENGTH_LONG).show();
+                deleteAccont();
+                //Toast.makeText(this,"Delete Account",Toast.LENGTH_LONG).show();
+                break;
+            case  R.id.about_us_nav_draw:
+                navController.navigate(R.id.action_homeUserSide_to_about_us_frag);
                 break;
             case R.id.log_out_nav_draw:
                 //Toast.makeText(this,"logout",Toast.LENGTH_LONG).show();
-                FirebaseAuth.getInstance().signOut();
-                Intent intent_signout = new Intent(this, Main2Activity.class);
-                startActivity(intent_signout);
-                finish();
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Log out");
+                builder.setMessage("Are you sure you want to logout your acccount ?")
+                        .setPositiveButton("Logout", new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                //your deleting code
+                                FirebaseAuth.getInstance().signOut();
+                                Intent intent_signout = new Intent(UserSide.this, Main2Activity.class);
+                                startActivity(intent_signout);
+                                finish();
+                                dialog.dismiss();
+                            }
+
+                        })
+                        .setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                dialog.dismiss();
+
+                            }
+                        });
+                builder.show();
+
+
                 break;
         }
         return false;
+    }
+
+    private void deleteAccont()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Delete Account");
+        builder.setMessage("Are you sure you want to delete acccount ? Once You delete your account, you will not be able to access your data again.")
+                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //your deleting code
+                        dialog.dismiss();
+                    }
+
+                })
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+
+                    }
+                });
+        builder.show();
+
     }
 
     @Override

@@ -22,6 +22,9 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
@@ -35,6 +38,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.craterradar.UserSide.ModelClass.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -65,6 +69,7 @@ public class SignupFrag extends Fragment implements View.OnClickListener{
     private StorageReference storageReference;
     private FirebaseAuth firebaseAuth;
 
+    NavController navController;
 
     public SignupFrag() {
         // Required empty public constructor
@@ -82,13 +87,15 @@ public class SignupFrag extends Fragment implements View.OnClickListener{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         context = getActivity().getApplicationContext();
+        navController = Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
+
         ProfileImage = view.findViewById(R.id.profileImage);
         ProfileImageBtn = view.findViewById(R.id.profileImageButton);
         Signup = view.findViewById(R.id.signupBtn);
         name = view.findViewById(R.id.name_layout);
         email = view.findViewById(R.id.email_layout);
         phoneNo = view.findViewById(R.id.phone_layout);
-        password = view.findViewById(R.id.password_editProfile);
+        password = view.findViewById(R.id.password_layout);
         confirm = view.findViewById(R.id.confirm_password_layout);
         progressBar = view.findViewById(R.id.signup_progress);
         progressBar.setVisibility(View.GONE);
@@ -172,7 +179,14 @@ public class SignupFrag extends Fragment implements View.OnClickListener{
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     Toast.makeText(getContext().getApplicationContext(), "Register Successful", Toast.LENGTH_SHORT).show();
-                                                    startActivity(new Intent(context,MainActivity.class));
+
+                                                    Bundle nav_tag = new Bundle();
+                                                    nav_tag.putString("From_SignUp","From_Signup");
+                                                    //startActivity(new Intent(context,Main2Activity.class));
+
+                                                    navController.navigate(R.id.action_signupFrag_to_loginPage,nav_tag);
+
+
                                                 }
                                             });
                                         }

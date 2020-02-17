@@ -1,12 +1,13 @@
-package com.example.craterradar;
+package com.example.craterradar.UserSide.ModelClass;
 
 public class Potholes {
-    String potholeid,potholeImageURL,location_Lat,location_Long,dangerLevel,timeStamp,description;
+    String uid,potholeid,potholeImageURL,location_Lat,location_Long,dangerLevel,timeStamp,description;
 
     public Potholes() {
     }
 
-    public Potholes(String potholeid, String potholeImageURL, String location_Lat, String location_Long, String dangerLevel, String timeStamp, String description) {
+    public Potholes(String uid,String potholeid, String potholeImageURL, String location_Lat, String location_Long, String dangerLevel, String timeStamp, String description) {
+        this.uid = uid;
         this.potholeid = potholeid;
         this.potholeImageURL = potholeImageURL;
         this.location_Lat = location_Lat;
@@ -14,6 +15,14 @@ public class Potholes {
         this.dangerLevel = dangerLevel;
         this.timeStamp = timeStamp;
         this.description = description;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getPotholeid() {

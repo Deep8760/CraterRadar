@@ -1,4 +1,4 @@
-package com.example.craterradar;
+package com.example.craterradar.UserSide.ModelClass;
 
 public class User {
     public String Fullname,Email,Phoneno,Password,ProfileImagePath;

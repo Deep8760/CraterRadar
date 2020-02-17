@@ -1,4 +1,4 @@
-package com.example.craterradar;
+package com.example.craterradar.UserSide;
 
 import com.google.android.gms.maps.model.LatLng;
 

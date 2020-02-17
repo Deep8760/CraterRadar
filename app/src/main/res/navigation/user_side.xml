@@ -7,20 +7,56 @@
 
     <fragment
         android:id="@+id/homeUserSide"
-        android:name="com.example.craterradar.HomeUserSide"
+        android:name="com.example.craterradar.UserSide.HomeUserSide"
         android:label="Home Page"
         tools:layout="@layout/fragment_home_user_side" >
         <action
             android:id="@+id/action_homeUserSide_to_edit_profile_frag"
             app:destination="@id/edit_profile_frag" />
+        <action
+            android:id="@+id/action_homeUserSide_to_list_of_All_Added_Pothole_frag"
+            app:destination="@id/list_of_All_Added_Pothole_frag" />
+        <action
+            android:id="@+id/action_homeUserSide_to_route_History_Frag"
+            app:destination="@id/route_History_Frag" />
+        <action
+            android:id="@+id/action_homeUserSide_to_about_us_frag"
+            app:destination="@id/about_us_frag" />
     </fragment>
     <fragment
         android:id="@+id/edit_profile_frag"
-        android:name="com.example.craterradar.Edit_profile_frag"
+        android:name="com.example.craterradar.UserSide.Edit_profile_frag"
         android:label="Edit Profile"
         tools:layout="@layout/fragment_edit_profile_frag" >
         <action
             android:id="@+id/action_edit_profile_frag_to_homeUserSide"
+            app:destination="@id/homeUserSide" />
+    </fragment>
+    <fragment
+        android:id="@+id/list_of_All_Added_Pothole_frag"
+        android:name="com.example.craterradar.UserSide.List_of_All_Added_Pothole_frag"
+        android:label="List of Added Pothole"
+        tools:layout="@layout/fragment_list_of__all__added__pothole_frag" >
+        <action
+            android:id="@+id/action_list_of_All_Added_Pothole_frag_to_homeUserSide"
+            app:destination="@id/homeUserSide" />
+    </fragment>
+    <fragment
+        android:id="@+id/route_History_Frag"
+        android:name="com.example.craterradar.UserSide.Route_History_Frag"
+        android:label="Searched Route History"
+        tools:layout="@layout/fragment_route__history_" >
+        <action
+            android:id="@+id/action_route_History_Frag_to_homeUserSide"
+            app:destination="@id/homeUserSide" />
+    </fragment>
+    <fragment
+        android:id="@+id/about_us_frag"
+        android:name="com.example.craterradar.UserSide.About_us_frag"
+        android:label="About us"
+        tools:layout="@layout/fragment_about_us_frag" >
+        <action
+            android:id="@+id/action_about_us_frag_to_homeUserSide"
             app:destination="@id/homeUserSide" />
     </fragment>
 </navigation>

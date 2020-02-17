@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.craterradar.UserSide.UserSide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
@@ -47,7 +48,6 @@ public class LoginPage extends Fragment implements View.OnClickListener {
         updateUI(firebaseUser);
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -58,6 +58,7 @@ public class LoginPage extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         context = getActivity().getApplicationContext();
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -124,7 +125,7 @@ public class LoginPage extends Fragment implements View.OnClickListener {
                 if(task.isSuccessful())
                 {
                     updateUI(firebaseUser);
-                    Intent i = new Intent(context,UserSide.class);
+                    Intent i = new Intent(context, UserSide.class);
                     startActivity(i);
                     getActivity().finish();
                     Toast.makeText(getActivity().getApplicationContext(),"Successfully Logged in!", Toast.LENGTH_LONG).show();

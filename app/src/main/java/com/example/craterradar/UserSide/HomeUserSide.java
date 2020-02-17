@@ -1,10 +1,8 @@
-package com.example.craterradar;
+package com.example.craterradar.UserSide;
 
 
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.icu.util.Currency;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -13,26 +11,18 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
-import android.os.PersistableBundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.AndroidException;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akexorcist.googledirection.DirectionCallback;
@@ -44,6 +34,7 @@ import com.akexorcist.googledirection.model.Info;
 import com.akexorcist.googledirection.model.Leg;
 import com.akexorcist.googledirection.model.Route;
 import com.akexorcist.googledirection.util.DirectionConverter;
+import com.example.craterradar.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
@@ -57,13 +48,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.maps.android.SphericalUtil;
 
 import org.json.JSONObject;
 
@@ -76,7 +63,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 
 public class HomeUserSide extends Fragment implements OnMapReadyCallback{
@@ -107,14 +93,25 @@ public class HomeUserSide extends Fragment implements OnMapReadyCallback{
         return inflater.inflate(R.layout.fragment_home_user_side, container, false);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
+        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
+            return;
+        }
+
+        fetchCurrentLocation();
+    }
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        progressBar = view.findViewById(R.id.direction_progress);
-        Destination_sv = view.findViewById(R.id.sv_location);
-        mapView = view.findViewById(R.id.home_map);
-        ShowRouteInfo = view.findViewById(R.id.show_detail_btn);
+        progressBar = view.findViewById(R.id.progress_home);
+        Destination_sv = view.findViewById(R.id.location_search);
+        mapView = view.findViewById(R.id.MAP_HOME);
+        ShowRouteInfo = view.findViewById(R.id.detail_btn);
         mapView.onCreate(savedInstanceState);
         mapView.onResume();
         mapView.getMapAsync( this);
@@ -124,13 +121,7 @@ public class HomeUserSide extends Fragment implements OnMapReadyCallback{
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = firebaseDatabase.getReference().child("Users").child(firebaseAuth.getUid()).child("SearchedRoutes");
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
-        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
-            return;
-        }
 
-        fetchCurrentLocation();
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         Destination_sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -155,15 +146,17 @@ public class HomeUserSide extends Fragment implements OnMapReadyCallback{
                         Destination_latLng = new LatLng(dest_address.getLatitude(), dest_address.getLongitude());
                         googleMap.addMarker(new MarkerOptions().position(Destination_latLng));
                         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(Destination_latLng, 15));
-                        String Searched_Route_ID = UUID.randomUUID().toString();
-                        databaseReference.child(Searched_Route_ID).child("Origin_Lat").setValue(Current_latLng.latitude);
+
+                        /*databaseReference.child(Searched_Route_ID).child("Origin_Lat").setValue(Current_latLng.latitude);
                         databaseReference.child(Searched_Route_ID).child("Origin_Long").setValue(Current_latLng.longitude);
                         databaseReference.child(Searched_Route_ID).child("Destination_Lat").setValue(Destination_latLng.latitude);
                         databaseReference.child(Searched_Route_ID).child("Destination_Long").setValue(Destination_latLng.longitude);
-
+*/
                         //Test
-                        getplaceName(Current_latLng.latitude,Current_latLng.longitude);
-                        getplaceName(Destination_latLng.latitude,Destination_latLng.longitude);
+                        String Searched_Route_ID = UUID.randomUUID().toString();
+                        databaseReference.child(Searched_Route_ID).child("Destination").setValue(query);
+
+
 
                         Destination_sv.clearFocus();
                         drawPolyLine();
@@ -184,32 +177,6 @@ public class HomeUserSide extends Fragment implements OnMapReadyCallback{
         mapView.getMapAsync(this);
         ShowRouteInfo.setVisibility(View.GONE);
     }
-    /** Test Start**/
-    public void getplaceName(double lat, double lng) {
-        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
-        try {
-            List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
-            Address obj = addresses.get(0);
-            String add = obj.getAddressLine(0);
-            add = add + "\n" + obj.getCountryName();
-            add = add + "\n" + obj.getCountryCode();
-            add = add + "\n" + obj.getAdminArea();
-            add = add + "\n" + obj.getPostalCode();
-            add = add + "\n" + obj.getSubAdminArea();
-            add = add + "\n" + obj.getLocality();
-            add = add + "\n" + obj.getSubThoroughfare();
-
-            Log.e(" Address",  add);
-            // Toast.makeText(this, "Address=>" + add,
-            // Toast.LENGTH_SHORT).show();
-
-            // TennisAppActivity.showDialog(add);
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-    }
-    /** Test End **/
     private void drawPolyLine() {
         progressBar.setVisibility(View.VISIBLE);
         String url = getRequesturl(Current_latLng,Destination_latLng);
@@ -245,7 +212,7 @@ public class HomeUserSide extends Fragment implements OnMapReadyCallback{
                     googleMap.setMyLocationEnabled(true);
 
                 }else{
-                    Toast.makeText(context,"No Location recorded",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,"No Location Found!\nPlease Turn on your Location services from Setting.",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -403,7 +370,7 @@ public class HomeUserSide extends Fragment implements OnMapReadyCallback{
 
         private void getDestinationInfo(LatLng latLngDestination) {
             progressBar.setVisibility(View.VISIBLE);
-            String serverKey = getResources().getString(R.string.map_key); // Api Key For Google Direction API \\
+            String serverKey = getResources().getString(R.string.KEY_MAP); // Api Key For Google Direction API \\
             final LatLng origin = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
             final LatLng destination = latLngDestination;
             //-------------Using AK Exorcist Google Direction Library---------------\\

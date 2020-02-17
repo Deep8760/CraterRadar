@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/pothole_list_item_map"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            map:liteMode="true"
+            map:mapType="none"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"
+        android:padding="10dp"
+        android:orientation="vertical"
+        android:background="@color/AppPrimary">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+            <TextView
+                android:id="@+id/pothole_list_item_danger_level"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:hint="Pothole Danger level"
+                android:textColor="@color/PrimaryFontColor"
+                android:textColorHint="@color/PrimaryFontColor"
+                android:gravity="center"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/pothole_list_item_timeStamp"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Pothole Timestamp"
+                android:textColor="@color/PrimaryFontColor"
+                android:textColorHint="@color/PrimaryFontColor"
+                android:gravity="center"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/pothole_list_item_description"
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description"
+            android:textColor="@color/PrimaryFontColor"
+            android:textColorHint="@color/PrimaryFontColor"
+            android:gravity="center"
+            android:maxHeight="55dp"/>
+    </LinearLayout>
+
+</LinearLayout>

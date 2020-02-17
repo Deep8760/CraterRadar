@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".HomeUserSide">
+    tools:context=".UserSide.HomeUserSide">
 
     <com.google.android.gms.maps.MapView
-        android:id="@+id/home_map"
+        android:id="@+id/MAP_HOME"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
@@ -16,7 +16,7 @@
         android:layout_alignParentBottom="true" />
 
         <androidx.appcompat.widget.SearchView
-            android:id="@+id/sv_location"
+            android:id="@+id/location_search"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:hint="Search Place"
@@ -32,7 +32,7 @@
             android:animateLayoutChanges="true"/>
 
     <ProgressBar
-        android:id="@+id/direction_progress"
+        android:id="@+id/progress_home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -41,7 +41,7 @@
         android:visibility="gone"
         android:layout_gravity="center"/>
     <Button
-        android:id="@+id/show_detail_btn"
+        android:id="@+id/detail_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"

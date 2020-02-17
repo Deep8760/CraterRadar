@@ -1,4 +1,4 @@
-package com.example.craterradar;
+package com.example.craterradar.UserSide;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,14 +17,18 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -39,6 +43,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.craterradar.R;
+import com.example.craterradar.UserSide.ModelClass.Potholes;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -47,10 +53,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.util.UUID;
 
@@ -68,7 +75,7 @@ public class AddPotholeActivity extends AppCompatActivity implements View.OnClic
     ProgressBar progressBar;
 
     //For Location
-    String TimeAndDate,Latitude,LatRef,Longitude,LongRef,Location,DangerLevel_Selected,Description;
+    String TimeAndDate="",Latitude,LatRef,Longitude,LongRef,Location="",DangerLevel_Selected,Description;
     Double lat,lon;
 
     FirebaseStorage firebaseStorage;
@@ -142,19 +149,36 @@ public class AddPotholeActivity extends AppCompatActivity implements View.OnClic
         else if(v == add_Pothole_btn)
         {
             Description = description.getText().toString();
-            if(!DangerLevel_Selected.contentEquals("Select Danger Level of Pothole")
-                    && !TimeAndDate.isEmpty()
-                    && !Location.isEmpty()
-                    && !DangerLevel_Selected.isEmpty()
-                    && !Description.isEmpty())
+
+            if (DangerLevel_Selected.contentEquals("Select Danger Level of Pothole"))
             {
+                Toast.makeText(this,"Please select Danger Level from Drop Down",Toast.LENGTH_LONG).show();
+            }
+            else if(TimeAndDate.contentEquals("") || Location.contentEquals(""))
+            {
+                Toast.makeText(this,"This image has no location and timestamp.",Toast.LENGTH_LONG).show();
+            }
+            else if(Description.isEmpty())
+            {
+                Toast.makeText(this,"Please enter description of pothole.",Toast.LENGTH_LONG).show();
+            }
+            else {
                 AddPothole();
                 Toast.makeText(this,"Added",Toast.LENGTH_LONG).show();
             }
-            else
-            {
-                Toast.makeText(this,"Fill all the fields!",Toast.LENGTH_LONG).show();
-            }
+
+//
+//            if(!DangerLevel_Selected.contentEquals("Select Danger Level of Pothole")
+//                    && TimeAndDate!=""
+//                    && Location != ""
+//                    && Description != "")
+//            {
+//
+//            }
+//            else
+//            {
+//                Toast.makeText(this,"Fill all the fields!",Toast.LENGTH_LONG).show();
+//            }
         }
 
     }
@@ -176,13 +200,14 @@ public class AddPotholeActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task)
             {
+                progressBar.setVisibility(View.GONE);
                 storageReference.child("Potholes/"+uid+"/"+pothole_id).child("Pothole_Image."+Imageextention).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
                         String url = uri.toString();
                         Log.i("Image URL",url);
 
-                        Potholes potholes = new Potholes(pothole_id,url,lat.toString(),lon.toString(),DangerLevel_Selected,TimeAndDate,Description);
+                        Potholes potholes = new Potholes(uid,pothole_id,url,lat.toString(),lon.toString(),DangerLevel_Selected,TimeAndDate,Description);
 
                         FirebaseDatabase.getInstance().getReference("Potholes").child(pothole_id).setValue(potholes).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -529,11 +554,10 @@ public class AddPotholeActivity extends AppCompatActivity implements View.OnClic
                     } else {
                         openCamera();
                     }
-                } else if (options[item].equals("Choose from Gallery")) {
-
+                }
+                else if (options[item].equals("Choose from Gallery")) {
                     Intent intent = new Intent(Intent.ACTION_PICK);
                     intent.setType("image/*");
-
                     startActivityForResult(Intent.createChooser(intent,"Select Image"), 2);
 
                 } else if (options[item].equals("Cancel")) {
@@ -582,6 +606,7 @@ public class AddPotholeActivity extends AppCompatActivity implements View.OnClic
             switch (requestCode) {
                 case 1:
                     progressBar.setVisibility(View.GONE);
+                    new EncodeImage(pothole_image_uri).execute();
                     potholeImage.setImageURI(pothole_image_uri);
                     getFileExtention(pothole_image_uri);
                     getLocation();
@@ -590,14 +615,79 @@ public class AddPotholeActivity extends AppCompatActivity implements View.OnClic
                     progressBar.setVisibility(View.GONE);
                     //data.getData returns the content URI for the selected Image
                     pothole_image_uri = data.getData();
+                    new EncodeImage(pothole_image_uri).execute();
                     potholeImage.setImageURI(pothole_image_uri);
                     getFileExtention(pothole_image_uri);
                     Log.i("ImageURI",pothole_image_uri.toString());
                     getLocation();
                     break;
+                    default:
+                        progressBar.setVisibility(View.GONE);
+                        break;
             }
 
         }
+    }
+
+    public static Bitmap rotateImage(Bitmap source, float angle) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
+                matrix, true);
+    }
+
+    public class EncodeImage extends AsyncTask<Void, Void, String> {
+        Uri uri;
+        String encodedImage = "";
+        public EncodeImage(Uri uri){
+            this.uri = uri;
+        }
+        @Override
+        protected String doInBackground(Void... params){
+
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), pothole_image_uri);
+                InputStream input = getContentResolver().openInputStream(pothole_image_uri);
+                ExifInterface ei;
+                if (Build.VERSION.SDK_INT > 23) {
+                    ei = new ExifInterface(input);
+                }
+                else {
+                    ei = new ExifInterface(pothole_image_uri.getPath());
+                }
+                int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+                        ExifInterface.ORIENTATION_UNDEFINED);
+
+                Bitmap rotatedBitmap = null;
+                switch(orientation) {
+
+                    case ExifInterface.ORIENTATION_ROTATE_90:
+                        rotatedBitmap = rotateImage(bitmap, 90);
+                        break;
+
+                    case ExifInterface.ORIENTATION_ROTATE_180:
+                        rotatedBitmap = rotateImage(bitmap, 180);
+                        break;
+
+                    case ExifInterface.ORIENTATION_ROTATE_270:
+                        rotatedBitmap = rotateImage(bitmap, 270);
+                        break;
+
+                    case ExifInterface.ORIENTATION_NORMAL:
+                    default:
+                        rotatedBitmap = bitmap;
+                }
+
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 75, outputStream);
+                byte[] byteArray = outputStream.toByteArray();
+                encodedImage = Base64.encodeToString(byteArray, Base64.DEFAULT);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return encodedImage;
+        }
+
     }
 
     @Override
