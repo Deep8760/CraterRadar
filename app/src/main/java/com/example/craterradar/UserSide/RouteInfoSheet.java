@@ -28,10 +28,14 @@ public class RouteInfoSheet extends BottomSheetDialogFragment {
     private static BottomSheetBehavior bottomSheetBehavior;
     Context context;
 
-    public RouteInfoSheet(String duration,String distance)
+    public RouteInfoSheet()
+    {}
+
+    public RouteInfoSheet(String duration, String distance, String no_Of_Pothole)
     {
         Duration = duration;
         Distance = distance;
+        No_Of_Pothole = no_Of_Pothole;
     }
 
     @Nullable
@@ -50,6 +54,7 @@ public class RouteInfoSheet extends BottomSheetDialogFragment {
 
         duration.setText(Duration);
         distance.setText(Distance);
+        no_of_pothole.setText(No_Of_Pothole);
 
         getDialog().setOnShowListener(new DialogInterface.OnShowListener() {
             @Override

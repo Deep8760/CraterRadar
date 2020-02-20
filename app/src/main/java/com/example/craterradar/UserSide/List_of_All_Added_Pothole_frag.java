@@ -39,8 +39,7 @@ public class List_of_All_Added_Pothole_frag extends Fragment {
     FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
-    String uid,dangerLevel,description,timeStamp;
-    LatLng location;
+    String uid,latitude,longitude,dangerLevel,description,timeStamp;
     Context context;
     ArrayList<AddedPothole> addedPotholeArrayList = new ArrayList<>();
     AddedPotholeListAdapter addedPotholeListAdapter;
@@ -86,12 +85,16 @@ public class List_of_All_Added_Pothole_frag extends Fragment {
                             Log.e("Long:", ds.child("location_Long").getValue().toString());
                             Log.e("Timestamo:", ds.child("timeStamp").getValue().toString());
 
-                            location = new LatLng(Double.parseDouble(ds.child("location_Lat").getValue().toString()),Double.parseDouble(ds.child("location_Long").getValue().toString()));
+                            //location = new LatLng(Double.parseDouble(ds.child("location_Lat").getValue().toString()),Double.parseDouble(ds.child("location_Long").getValue().toString()));
+                            //Log.e("Location",location.toString());
+                            latitude = ds.child("location_Lat").getValue().toString();
+                            longitude = ds.child("location_Long").getValue().toString();
                             dangerLevel = ds.child("dangerLevel").getValue().toString();
                             description = ds.child("description").getValue().toString();
                             timeStamp = ds.child("timeStamp").getValue().toString();
-                            Log.e("before Added in List:",location+"\n"+dangerLevel+"\n"+timeStamp+"\n"+description);
-                            addedPotholeArrayList.add(new AddedPothole(location,dangerLevel,timeStamp,description));
+                            //Log.e("before Added in List:",location+"\n"+dangerLevel+"\n"+timeStamp+"\n"+description);
+                            addedPotholeArrayList.add(new AddedPothole(latitude,longitude,dangerLevel,timeStamp,description));
+
                         }
                     }
                     addedPotholeListAdapter = new AddedPotholeListAdapter(addedPotholeArrayList,context);

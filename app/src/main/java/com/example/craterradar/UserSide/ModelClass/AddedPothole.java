@@ -5,25 +5,34 @@ import android.location.Location;
 import com.google.android.gms.maps.model.LatLng;
 
 public class AddedPothole {
-    String dangerlevel,timestamp,description;
-    LatLng location;
+    String latitude,longitude,dangerlevel,timestamp,description;
 
     public AddedPothole() {
     }
 
-    public AddedPothole(LatLng location, String dangerlevel, String timestamp, String description) {
-        this.location = location;
+    public AddedPothole(String latitude,String longitude, String dangerlevel, String timestamp, String description) {
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.dangerlevel = dangerlevel;
         this.timestamp = timestamp;
         this.description = description;
     }
 
-    public LatLng getLocation() {
-        return location;
+
+    public String getLatitude() {
+        return latitude;
     }
 
-    public void setLocation(LatLng location) {
-        this.location = location;
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
     public String getDangerlevel() {

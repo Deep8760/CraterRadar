@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/admin_side"
+    app:startDestination="@id/home_admin_side">
+
+    <fragment
+        android:id="@+id/home_admin_side"
+        android:name="com.example.craterradar.AdminSide.home_admin_side"
+        android:label="Admin Pannel"
+        tools:layout="@layout/fragment_home_admin_side" >
+        <action
+            android:id="@+id/action_home_admin_side_to_about_us_admin_frag"
+            app:destination="@id/about_us_admin_frag" />
+        <action
+            android:id="@+id/action_home_admin_side_to_edit_profile_admin_frag"
+            app:destination="@id/edit_profile_admin_frag" />
+        <action
+            android:id="@+id/action_home_admin_side_self"
+            app:destination="@id/home_admin_side" />
+    </fragment>
+    <fragment
+        android:id="@+id/edit_profile_admin_frag"
+        android:name="com.example.craterradar.AdminSide.edit_profile_admin_frag"
+        android:label="Edit Profile"
+        tools:layout="@layout/fragment_edit_profile_admin_frag" >
+        <action
+            android:id="@+id/action_edit_profile_admin_frag_to_home_admin_side"
+            app:destination="@id/home_admin_side" />
+    </fragment>
+    <fragment
+        android:id="@+id/about_us_admin_frag"
+        android:name="com.example.craterradar.AdminSide.about_us_admin_frag"
+        android:label="About us"
+        tools:layout="@layout/fragment_about_us_admin_frag" >
+        <action
+            android:id="@+id/action_about_us_admin_frag_to_home_admin_side"
+            app:destination="@id/home_admin_side" />
+    </fragment>
+    <fragment
+        android:id="@+id/list_user_frag"
+        android:name="com.example.craterradar.AdminSide.list_user_frag"
+        android:label="User List"
+        tools:layout="@layout/fragment_list_user_frag" />
+    <fragment
+        android:id="@+id/list_pothole_frag"
+        android:name="com.example.craterradar.AdminSide.list_pothole_frag"
+        android:label="Pothole List"
+        tools:layout="@layout/fragment_list_pothole_frag" />
+    <fragment
+        android:id="@+id/list_deleteReq_frag"
+        android:name="com.example.craterradar.AdminSide.list_deleteReq_frag"
+        android:label="Delete Request List"
+        tools:layout="@layout/fragment_list_delete_req_frag" />
+</navigation>

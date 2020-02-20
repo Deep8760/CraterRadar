@@ -1,6 +1,7 @@
 package com.example.craterradar.UserSide.ListAdapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +39,7 @@ public class AddedPotholeListAdapter extends RecyclerView.Adapter<AddedPotholeLi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AddedPotholeListAdapter.ItemViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         if(holder == null)
         {
             return;
@@ -56,6 +57,7 @@ public class AddedPotholeListAdapter extends RecyclerView.Adapter<AddedPotholeLi
         GoogleMap googleMap;
         MapView mapView;
         TextView dangerLevel,timeStamp,description;
+        //LatLng latLng;
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
             mapView = itemView.findViewById(R.id.pothole_list_item_map);
@@ -74,26 +76,20 @@ public class AddedPotholeListAdapter extends RecyclerView.Adapter<AddedPotholeLi
         public void onMapReady(GoogleMap googleMap) {
             MapsInitializer.initialize(context);
             this.googleMap = googleMap;
-            LatLng latLng = addedPothole_data.getLocation();
 
             // Add a marker for this item and set the camera
-            this.googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13f));
-            this.googleMap.addMarker(new MarkerOptions().position(latLng));
-
+            this.googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.parseDouble(addedPothole_data.getLatitude()),Double.parseDouble(addedPothole_data.getLongitude())), 13f));
+            this.googleMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(addedPothole_data.getLatitude()),Double.parseDouble(addedPothole_data.getLongitude()))));
             // Set the map type back to normal.
             this.googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        }
-
-        private void setMapLocation() {
-
         }
 
         public void bindView(int position)
         {
             addedPothole_data = addedPotholeArrayList.get(position);
-            if(addedPothole_data.getLocation() != null)
+            if(googleMap != null)
             {
-                setMapLocation();
+                //latLng = new LatLng(Double.parseDouble(addedPothole_data.getLatitude()),Double.parseDouble(addedPothole_data.getLongitude()));
                 dangerLevel.setText(addedPothole_data.getDangerlevel());
                 timeStamp.setText(addedPothole_data.getTimestamp());
                 description.setText(addedPothole_data.getDescription());

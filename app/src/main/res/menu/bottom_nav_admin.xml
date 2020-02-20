@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/list_of_user_adminBottom"
+        android:icon="@drawable/list_of_user_icon"
+        android:title="User list"/>
+
+    <item
+        android:id="@+id/list_of_pothole_adminBottom"
+        android:icon="@drawable/pothole_icon"
+        android:title="Potholes List"/>
+
+    <item
+        android:id="@+id/delete_req_list_adminBottom"
+        android:icon="@drawable/delete_req_list_icon"
+        android:title="Delete Req List"/>
+</menu>

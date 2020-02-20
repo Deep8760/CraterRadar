@@ -601,6 +601,7 @@ public class AddPotholeActivity extends AppCompatActivity implements View.OnClic
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         // Result code is RESULT_OK only if the user selects an Image
         super.onActivityResult(requestCode, resultCode, data);
+
         progressBar.setVisibility(View.VISIBLE);
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
@@ -628,6 +629,8 @@ public class AddPotholeActivity extends AppCompatActivity implements View.OnClic
 
         }
     }
+
+
 
     public static Bitmap rotateImage(Bitmap source, float angle) {
         Matrix matrix = new Matrix();

@@ -3,6 +3,7 @@ package com.example.craterradar;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.craterradar.AdminSide.AdminLoginActivity;
 import com.example.craterradar.UserSide.UserSide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,18 +28,26 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class LoginPage extends Fragment implements View.OnClickListener {
     Context context;
     TextInputLayout Email_ID,Password ;
-    Button Login,Forget,Signup;
+    Button Login,Forget,Signup,Adminlogin;
     String userID,pass;
     NavController navController;
     ProgressBar progressBar;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
-
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+    SharedPreferences sharedPreferences;
+    String admin_email,admin_pass;
 
     public LoginPage() {
         // Required empty public constructor
@@ -45,6 +56,7 @@ public class LoginPage extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
+        //updateUI(null);
         updateUI(firebaseUser);
     }
 
@@ -60,8 +72,11 @@ public class LoginPage extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
 
         context = getActivity().getApplicationContext();
-
+        sharedPreferences = context.getSharedPreferences("LoginData",Context.MODE_PRIVATE);
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("Admin");
 
 
         navController = Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
@@ -73,6 +88,9 @@ public class LoginPage extends Fragment implements View.OnClickListener {
         Login = view.findViewById(R.id.loginBtn);
         Forget = view.findViewById(R.id.forget_login);
         Signup = view.findViewById(R.id.signup_login);
+
+        Adminlogin = view.findViewById(R.id.adminLogin_login);
+
         progressBar =view.findViewById(R.id.login_progress);
         progressBar.setVisibility(View.GONE);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Login");
@@ -83,6 +101,8 @@ public class LoginPage extends Fragment implements View.OnClickListener {
         Login.setOnClickListener(this);
         Forget.setOnClickListener(this);
         Signup.setOnClickListener(this);
+
+        Adminlogin.setOnClickListener(this);
 
     }
 
@@ -95,13 +115,45 @@ public class LoginPage extends Fragment implements View.OnClickListener {
             if(!userID.isEmpty() && !pass.isEmpty())
             {
 
-                FirebaseLoginMethod(userID,pass);
+                databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists())
+                        {
+                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                admin_email = ds.child("AdminEmail").getValue().toString();
+                                admin_pass = ds.child("AdminPassword").getValue().toString();
+
+                                if (!userID.contentEquals(admin_email) && !pass.contentEquals(admin_pass)) {
+                                    FirebaseLoginMethod(userID, pass);
+                                } else {
+                                    Toast.makeText(context, "This is admin login.Please go to Admin Login Page.", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        }
+                        else {
+                            Toast.makeText(context, "Something is wrong! Try Again.", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
             }
             else
             {
                 Toast.makeText(context,"Something is missing!",Toast.LENGTH_LONG).show();
             }
 
+        }
+        else if(v == Adminlogin)
+        {
+            Intent i = new Intent(getContext(), AdminLoginActivity.class);
+            startActivity(i);
+            getActivity().finish();
         }
         else if(v == Forget)
         {
@@ -114,6 +166,7 @@ public class LoginPage extends Fragment implements View.OnClickListener {
     }
     public void FirebaseLoginMethod(String UserEmail,String Password)
     {
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
         progressBar.setVisibility(View.VISIBLE);
         getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);//Block UI
@@ -124,6 +177,8 @@ public class LoginPage extends Fragment implements View.OnClickListener {
                 getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);//UnBlock UI
                 if(task.isSuccessful())
                 {
+                    editor.putString("UserType","User");
+                    editor.commit();
                     updateUI(firebaseUser);
                     Intent i = new Intent(context, UserSide.class);
                     startActivity(i);
@@ -133,7 +188,7 @@ public class LoginPage extends Fragment implements View.OnClickListener {
                 else
                 {
                     Toast.makeText(getActivity().getApplicationContext(),"There is some Problem. Please Try Again!", Toast.LENGTH_LONG).show();
-                    //updateUI(null);
+                    updateUI(null);
                 }
 
             }
@@ -141,7 +196,10 @@ public class LoginPage extends Fragment implements View.OnClickListener {
 
         //getActivity().finish();
     }
-    public void updateUI(FirebaseUser user)
+
+
+
+  public void updateUI(FirebaseUser user)
     {
         user = firebaseAuth.getCurrentUser();
         progressBar.setVisibility(View.GONE);
@@ -152,5 +210,4 @@ public class LoginPage extends Fragment implements View.OnClickListener {
             getActivity().finish();
         }
     }
-
 }
