@@ -52,14 +52,14 @@ public class PotholeListAdapter extends RecyclerView.Adapter<PotholeListAdapter.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                detailsBundle.putString("PotholeID",potholeList.getPotholeID());
-                detailsBundle.putString("PotholeImageUrl",potholeList.getPotholeImageurl());
-                detailsBundle.putString("PotholeLat",potholeList.getPothole_lat());
-                detailsBundle.putString("PotholeLong",potholeList.getPothole_long());
-                detailsBundle.putString("PotholeDangerLevel",potholeList.getPotholeDangerLevel());
-                detailsBundle.putString("PotholeDescription",potholeList.getPotholeDescription());
-                detailsBundle.putString("PotholeTimeStamp",potholeList.getPotholeTimeStamp());
-                detailsBundle.putString("PotholeUploadedBy",potholeList.getPotholeUploadedby());
+                detailsBundle.putString("PotholeID",potholeListArrayList.get(position).getPotholeID());
+                detailsBundle.putString("PotholeImageUrl",potholeListArrayList.get(position).getPotholeImageurl());
+                detailsBundle.putString("PotholeLat",potholeListArrayList.get(position).getPothole_lat());
+                detailsBundle.putString("PotholeLong",potholeListArrayList.get(position).getPothole_long());
+                detailsBundle.putString("PotholeDangerLevel",potholeListArrayList.get(position).getPotholeDangerLevel());
+                detailsBundle.putString("PotholeDescription",potholeListArrayList.get(position).getPotholeDescription());
+                detailsBundle.putString("PotholeTimeStamp",potholeListArrayList.get(position).getPotholeTimeStamp());
+                detailsBundle.putString("PotholeUploadedBy",potholeListArrayList.get(position).getPotholeUploadedby());
                 Intent i = new Intent(context, PotholeDetailsAdmin.class);
                 i.putExtras(detailsBundle);
                 v.getContext().startActivity(i);

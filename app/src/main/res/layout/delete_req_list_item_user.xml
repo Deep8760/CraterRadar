@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20sp"
+    android:padding="10dp"
+    android:gravity="center"
+    android:background="@drawable/round_edittext"
+    android:backgroundTint="@color/AppPrimary">
+
+    <TextView
+        android:id="@+id/deleteReqId_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Pothole Delete Req ID"
+        android:textColor="@color/PrimaryFontColor"
+        android:textColorHint="@color/PrimaryFontColor"
+        android:textSize="18sp"
+        android:textAlignment="center"/>
+    <TextView
+        android:id="@+id/pothole_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="potholeID"
+        android:textColor="@color/PrimaryFontColor"
+        android:textColorHint="@color/PrimaryFontColor"
+        android:textSize="16sp"
+        android:textAlignment="center"/>
+    <TextView
+        android:id="@+id/deleteReq_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="status"
+        android:textColor="@color/PrimaryFontColor"
+        android:textColorHint="@color/PrimaryFontColor"
+        android:textSize="16sp"
+        android:textAlignment="center"/>
+
+
+</LinearLayout>

@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.craterradar.R;
 import com.example.craterradar.UserSide.ListAdapters.AddedPotholeListAdapter;
@@ -39,7 +40,7 @@ public class List_of_All_Added_Pothole_frag extends Fragment {
     FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
-    String uid,latitude,longitude,dangerLevel,description,timeStamp;
+    String uid,potholeID,potholeImageURL,addedByUID,latitude,longitude,dangerLevel,description,timeStamp;
     Context context;
     ArrayList<AddedPothole> addedPotholeArrayList = new ArrayList<>();
     AddedPotholeListAdapter addedPotholeListAdapter;
@@ -68,7 +69,7 @@ public class List_of_All_Added_Pothole_frag extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Potholes");
         uid = firebaseAuth.getCurrentUser().getUid();
-
+        addedPotholeArrayList.clear();
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -79,11 +80,11 @@ public class List_of_All_Added_Pothole_frag extends Fragment {
 
                         if(ds.child("uid").getValue().toString().contentEquals(uid))
                         {
-                            Log.e("DangerLevel:", ds.child("dangerLevel").getValue().toString());
+                           /* Log.e("DangerLevel:", ds.child("dangerLevel").getValue().toString());
                             Log.e("Description:", ds.child("description").getValue().toString());
                             Log.e("Lat:", ds.child("location_Lat").getValue().toString());
                             Log.e("Long:", ds.child("location_Long").getValue().toString());
-                            Log.e("Timestamo:", ds.child("timeStamp").getValue().toString());
+                            Log.e("Timestamo:", ds.child("timeStamp").getValue().toString());*/
 
                             //location = new LatLng(Double.parseDouble(ds.child("location_Lat").getValue().toString()),Double.parseDouble(ds.child("location_Long").getValue().toString()));
                             //Log.e("Location",location.toString());
@@ -92,14 +93,18 @@ public class List_of_All_Added_Pothole_frag extends Fragment {
                             dangerLevel = ds.child("dangerLevel").getValue().toString();
                             description = ds.child("description").getValue().toString();
                             timeStamp = ds.child("timeStamp").getValue().toString();
+                            potholeID = ds.child("potholeid").getValue().toString();
+                            potholeImageURL = ds.child("potholeImageURL").getValue().toString();
+                            addedByUID = ds.child("uid").getValue().toString();
                             //Log.e("before Added in List:",location+"\n"+dangerLevel+"\n"+timeStamp+"\n"+description);
-                            addedPotholeArrayList.add(new AddedPothole(latitude,longitude,dangerLevel,timeStamp,description));
+                            addedPotholeArrayList.add(new AddedPothole(potholeID,potholeImageURL,addedByUID,latitude,longitude,dangerLevel,timeStamp,description));
 
                         }
                     }
                     addedPotholeListAdapter = new AddedPotholeListAdapter(addedPotholeArrayList,context);
                     recyclerView.setAdapter(addedPotholeListAdapter);
                     addedPotholeListAdapter.notifyDataSetChanged();
+                    addedPotholeListAdapter.setOnClickListner(onClickListener);
                     if(!addedPotholeArrayList.isEmpty())
                     {
                         recyclerView.setVisibility(View.VISIBLE);
@@ -110,9 +115,17 @@ public class List_of_All_Added_Pothole_frag extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Toast.makeText(context,"Data Error : "+databaseError.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
 
     }
+    public View.OnClickListener onClickListener = new View.OnClickListener()
+    {
+        @Override
+        public void onClick(View view) {
+            RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
+            //int position = viewHolder.getAdapterPosition();
+        }
+    };
 }

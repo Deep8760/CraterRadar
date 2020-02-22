@@ -4,8 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
         <com.google.android.gms.maps.MapView
             android:id="@+id/pothole_list_item_map"
             android:layout_width="match_parent"
@@ -13,54 +18,78 @@
             android:layout_height="150dp"
             map:liteMode="true"
             map:mapType="none"
-            android:layout_marginTop="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginLeft="15dp"
             app:liteMode="true"
-            app:mapType="normal"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="15dp"
-        android:padding="10dp"
-        android:orientation="vertical"
-        android:background="@color/AppPrimary">
+            app:mapType="normal"
+            android:clickable="false"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/l1"/>
+            <Button
+                android:id="@+id/potholeDelete_btn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/delete"
+                android:backgroundTint="@android:color/holo_red_light"
+                android:layout_gravity="end"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:alpha="0.8"
+                app:layout_constraintTop_toTopOf="@+id/pothole_list_item_map"
+                app:layout_constraintEnd_toEndOf="@+id/pothole_list_item_map"/>
         <LinearLayout
+            android:id="@+id/l1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp">
-            <TextView
-                android:id="@+id/pothole_list_item_danger_level"
-                android:layout_weight="1"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
+            android:padding="10dp"
+            android:orientation="vertical"
+            android:background="@color/AppPrimary"
+            app:layout_constraintTop_toBottomOf="@id/pothole_list_item_map"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:hint="Pothole Danger level"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+                <TextView
+                    android:id="@+id/pothole_list_item_danger_level"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:hint="Pothole Danger level"
+                    android:textColor="@color/PrimaryFontColor"
+                    android:textColorHint="@color/PrimaryFontColor"
+                    android:gravity="center"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/pothole_list_item_timeStamp"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Pothole Timestamp"
+                    android:textColor="@color/PrimaryFontColor"
+                    android:textColorHint="@color/PrimaryFontColor"
+                    android:gravity="center"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/pothole_list_item_description"
+                android:padding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Description"
                 android:textColor="@color/PrimaryFontColor"
                 android:textColorHint="@color/PrimaryFontColor"
                 android:gravity="center"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/pothole_list_item_timeStamp"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Pothole Timestamp"
-                android:textColor="@color/PrimaryFontColor"
-                android:textColorHint="@color/PrimaryFontColor"
-                android:gravity="center"/>
+                android:maxHeight="55dp"/>
         </LinearLayout>
-        <TextView
-            android:id="@+id/pothole_list_item_description"
-            android:padding="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Description"
-            android:textColor="@color/PrimaryFontColor"
-            android:textColorHint="@color/PrimaryFontColor"
-            android:gravity="center"
-            android:maxHeight="55dp"/>
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 </LinearLayout>

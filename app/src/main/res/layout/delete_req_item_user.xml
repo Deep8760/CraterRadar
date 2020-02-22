@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="15dp"
+        android:padding="15dp"
+        android:background="@drawable/round_edittext"
+        android:backgroundTint="@color/AppPrimary"
+        android:layout_gravity="center"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/deleteReq_id_listItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Delete Request ID"
+            android:textSize="18sp"
+            android:textColor="@color/PrimaryFontColor"
+            android:textColorHint="@color/PrimaryFontColor"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/deleteReq_potholeID_listItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Pothole ID"
+            android:textSize="16sp"
+            android:textColor="@color/PrimaryFontColor"
+            android:textColorHint="@color/PrimaryFontColor"
+            android:gravity="center" />
+        <TextView
+            android:id="@+id/deleteReq_status_listItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Status"
+            android:textSize="16sp"
+            android:textColor="@color/PrimaryFontColor"
+            android:textColorHint="@color/PrimaryFontColor"
+            android:gravity="center" />
+    </LinearLayout>
+
+</LinearLayout>

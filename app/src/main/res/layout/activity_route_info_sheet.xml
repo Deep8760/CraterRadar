@@ -13,103 +13,109 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottom_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
-        <ImageView
-            android:id="@+id/duration_route_logo"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/clock"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.163"
-            app:layout_constraintStart_toStartOf="parent"
+        <LinearLayout
+            android:id="@+id/mail_l1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.098" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/divider">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="20dp">
+                <ImageView
+                    android:id="@+id/duration_route_logo"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/clock" />
 
-        <TextView
-            android:id="@+id/duration_route_info"
-            android:layout_width="95dp"
-            android:layout_height="65dp"
-            android:fontFamily="@font/lucidagrande"
-            android:hint="Duration"
-            android:justificationMode="none"
-            android:text=""
-            android:textAlignment="center"
-            android:textColor="@color/AppPrimary"
-            android:textColorHint="@color/AppPrimary"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.126"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.247" />
+                <TextView
+                    android:id="@+id/duration_route_info"
+                    android:layout_width="95dp"
+                    android:layout_height="65dp"
+                    android:fontFamily="@font/lucidagrande"
+                    android:hint="Duration"
+                    android:justificationMode="none"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/AppPrimary"
+                    android:textColorHint="@color/AppPrimary"
+                    android:textSize="16sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="20dp">
+                <ImageView
+                    android:id="@+id/distance_route_logo"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/road"
+                    />
 
-        <ImageView
-            android:id="@+id/distance_route_logo"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/road"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.098" />
+                <TextView
+                    android:id="@+id/distance_route_info"
+                    android:layout_width="95dp"
+                    android:layout_height="65dp"
+                    android:fontFamily="@font/lucidagrande"
+                    android:hint="Distance"
+                    android:justificationMode="none"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/AppPrimary"
+                    android:textColorHint="@color/AppPrimary"
+                    android:textSize="16sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="20dp">
+                <ImageView
+                    android:id="@+id/no_of_pothole_route_logo"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/pothole"
+                    />
 
-        <TextView
-            android:id="@+id/distance_route_info"
-            android:layout_width="95dp"
-            android:layout_height="65dp"
-            android:fontFamily="@font/lucidagrande"
-            android:hint="Distance"
-            android:justificationMode="none"
-            android:text=""
-            android:textAlignment="center"
-            android:textColor="@color/AppPrimary"
-            android:textColorHint="@color/AppPrimary"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.245" />
+                <TextView
+                    android:id="@+id/no_of_pothole_route_info"
+                    android:layout_width="95dp"
+                    android:layout_height="65dp"
+                    android:fontFamily="@font/lucidagrande"
+                    android:hint="No of Pothole"
+                    android:justificationMode="none"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/AppPrimary"
+                    android:textColorHint="@color/AppPrimary"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
-        <ImageView
-            android:id="@+id/no_of_pothole_route_logo"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/pothole"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.85"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.098" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/no_of_pothole_route_info"
-            android:layout_width="95dp"
-            android:layout_height="65dp"
-            android:fontFamily="@font/lucidagrande"
-            android:hint="No of Pothole"
-            android:justificationMode="none"
-            android:text=""
-            android:textAlignment="center"
-            android:textColor="@color/AppPrimary"
-            android:textColorHint="@color/AppPrimary"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.905"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.245" />
+
+
+
 
         <View
             android:id="@+id/divider"
@@ -119,9 +125,12 @@
             android:layout_marginTop="32dp"
             android:layout_marginRight="30dp"
             android:background="@color/AppPrimary"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/distance_route_info" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mail_l1"
+            app:layout_constraintBottom_toTopOf="@+id/more_details_pothole_info"/>
+
+       <!--
         <LinearLayout
             android:id="@+id/pothole_info_route"
             android:layout_width="match_parent"
@@ -222,7 +231,7 @@
                     android:textColorHint="@color/AppPrimary"
                     android:textSize="20sp"/>
             </LinearLayout>
-        </LinearLayout>
+        </LinearLayout>-->
 
         <Button
             android:id="@+id/more_details_pothole_info"
@@ -237,7 +246,7 @@
             android:textColor="@color/AppPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pothole_info_route"
+            app:layout_constraintTop_toBottomOf="@+id/divider"
             app:layout_constraintBottom_toBottomOf="parent"
             android:shadowColor="@android:color/transparent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

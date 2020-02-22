@@ -54,10 +54,12 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class SignupFrag extends Fragment implements View.OnClickListener{
     Context context;
-    ImageView ProfileImage;
-    Button ProfileImageBtn,Signup;
+    CircleImageView ProfileImage;
+    Button /*ProfileImageBtn,*/Signup;
     TextInputLayout name,email,phoneNo,password,confirm;
     String user_name,user_email,user_phone,user_pass,user_confirm_pass;
     ProgressBar progressBar;
@@ -90,7 +92,7 @@ public class SignupFrag extends Fragment implements View.OnClickListener{
         navController = Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
 
         ProfileImage = view.findViewById(R.id.profileImage);
-        ProfileImageBtn = view.findViewById(R.id.profileImageButton);
+       /* ProfileImageBtn = view.findViewById(R.id.profileImageButton);*/
         Signup = view.findViewById(R.id.signupBtn);
         name = view.findViewById(R.id.name_layout);
         email = view.findViewById(R.id.email_layout);
@@ -109,13 +111,13 @@ public class SignupFrag extends Fragment implements View.OnClickListener{
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Users");
 
-        ProfileImageBtn.setOnClickListener(this);
+        ProfileImage.setOnClickListener(this);
         Signup.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if (v == ProfileImageBtn)
+        if (v == ProfileImage)
         {
             SelectProfilePic();
         }

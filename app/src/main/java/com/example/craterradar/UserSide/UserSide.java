@@ -19,6 +19,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,13 +36,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class UserSide extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public Toolbar toolbar;
     public DrawerLayout HomeDrawerLayout;
     public NavigationView HomeNavigationView;
     public NavController navController;
     public TextView UserName,EmailID;
-    public ImageView profileImage;
+    public CircleImageView profileImage;
     public String userName,emailID,profilePhotoUrl;
     public FirebaseAuth firebaseAuth;
     public FirebaseDatabase firebaseDatabase;
@@ -122,6 +125,7 @@ public class UserSide extends AppCompatActivity implements NavigationView.OnNavi
     public void onBackPressed() {
         if (HomeDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             HomeDrawerLayout.closeDrawer(GravityCompat.START);
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); //Hide Key Board
         } else {
             super.onBackPressed();
         }
@@ -148,6 +152,9 @@ public class UserSide extends AppCompatActivity implements NavigationView.OnNavi
             case R.id.route_history_nav_draw:
                 navController.navigate(R.id.action_homeUserSide_to_route_History_Frag);
                 //Toast.makeText(this,"Route History",Toast.LENGTH_LONG).show();
+                break;
+            case R.id.deleteReq_nav_draw:
+                navController.navigate(R.id.action_homeUserSide_to_deleteRequestList_user);
                 break;
             case R.id.delete_account_nav_draw:
                 deleteAccont();

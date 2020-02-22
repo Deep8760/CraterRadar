@@ -377,7 +377,9 @@ public class HomeUserSide extends Fragment implements OnMapReadyCallback {
 
             }
 
-            googleMap.addPolyline(polylineOptions);
+            if(polylineOptions != null) {
+                googleMap.addPolyline(polylineOptions);
+
 
             final List<LatLng> OnrouteCheck = polylineOptions.getPoints();
             //final List<String> DangerLevel = null;
@@ -421,6 +423,10 @@ public class HomeUserSide extends Fragment implements OnMapReadyCallback {
                     Toast.makeText(context, "There is some problem in fetching data.", Toast.LENGTH_LONG).show();
                 }
             });
+            }
+            else {
+                Toast.makeText(context,"Unable to Set Route for this location.",Toast.LENGTH_LONG).show();
+            }
 
         }
 

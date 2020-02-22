@@ -21,9 +21,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 
 public class RouteInfoSheet extends BottomSheetDialogFragment {
-    TextView duration,distance,no_of_pothole,pothole_duration,pothole_distance,danger_level;
+    TextView duration,distance,no_of_pothole;
     Button MoreDetailsBtn;
-    String Duration,Distance,No_Of_Pothole,Pothole_Duration,Pothole_Distance,Danger_Level;
+    String Duration,Distance,No_Of_Pothole;
     private static View bottomSheetInternal;
     private static BottomSheetBehavior bottomSheetBehavior;
     Context context;
@@ -47,11 +47,12 @@ public class RouteInfoSheet extends BottomSheetDialogFragment {
         duration = view.findViewById(R.id.duration_route_info);
         distance = view.findViewById(R.id.distance_route_info);
         no_of_pothole = view.findViewById(R.id.no_of_pothole_route_info);
-        pothole_duration = view.findViewById(R.id.next_pothole_duration_info);
-        pothole_distance = view.findViewById(R.id.next_pothole_distance_info);
-        danger_level = view.findViewById(R.id.danger_level_pothole_info);
         MoreDetailsBtn = view.findViewById(R.id.more_details_pothole_info);
 
+        if(No_Of_Pothole.contentEquals("0"))
+        {
+            MoreDetailsBtn.setVisibility(View.GONE);
+        }
         duration.setText(Duration);
         distance.setText(Distance);
         no_of_pothole.setText(No_Of_Pothole);

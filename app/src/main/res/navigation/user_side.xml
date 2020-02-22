@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_homeUserSide_to_about_us_frag"
             app:destination="@id/about_us_frag" />
+        <action
+            android:id="@+id/action_homeUserSide_to_deleteRequestList_user"
+            app:destination="@id/deleteRequestList_user" />
     </fragment>
     <fragment
         android:id="@+id/edit_profile_frag"
@@ -57,6 +60,15 @@
         tools:layout="@layout/fragment_about_us_frag" >
         <action
             android:id="@+id/action_about_us_frag_to_homeUserSide"
+            app:destination="@id/homeUserSide" />
+    </fragment>
+    <fragment
+        android:id="@+id/deleteRequestList_user"
+        android:name="com.example.craterradar.UserSide.DeleteRequestList_user"
+        android:label="Delete Request List"
+        tools:layout="@layout/fragment_delete_request_list_user" >
+        <action
+            android:id="@+id/action_deleteRequestList_user_to_homeUserSide"
             app:destination="@id/homeUserSide" />
     </fragment>
 </navigation>

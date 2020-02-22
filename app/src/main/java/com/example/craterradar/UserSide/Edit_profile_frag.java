@@ -47,13 +47,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class Edit_profile_frag extends Fragment implements View.OnClickListener{
     Context context;
     NavController navController;
 
     ProgressBar progressBar;
-    ImageView profilePic;
+    CircleImageView profilePic;
     EditText name,email,phone,password,confirm;
     Button SaveBtn;
     String Name,Email,Phone,Password,Confirm,URL;

@@ -27,9 +27,12 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AdminSide.PotholeDetailsAdmin"></activity>
+        <activity android:name=".AdminSide.DeleteReqDetailsAdmin"></activity>
+        <activity android:name=".UserSide.PotholeDeleteReq_user" />
+        <activity android:name=".AdminSide.PotholeDetailsAdmin" />
         <activity android:name=".AdminSide.UserDetailsAdmin" />
         <activity
             android:name=".AdminSide.AdminLoginActivity"
@@ -49,6 +52,7 @@
 
         <activity
             android:name=".UserSide.UserSide"
+            android:hardwareAccelerated="true"
             android:theme="@style/ThemeForCraterRadar" />
         <activity
             android:name=".Main2Activity"

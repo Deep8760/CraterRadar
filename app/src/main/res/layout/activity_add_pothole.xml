@@ -15,7 +15,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:visibility="visible"
             android:background="@color/AppPrimary" />
-        <ImageView
+
+        <!--<de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/add_pothole_image_f1"
             android:layout_width="match_parent"
             android:layout_height="150dp"
@@ -26,9 +27,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="100dp"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/AppPrimary"
             android:clickable="true"
             android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"/>
+            android:layout_marginRight="50dp"/>-->
+        <ImageView
+                android:id="@+id/add_pothole_image"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+                android:src="@drawable/add_pothole_icon"
+                android:maxHeight="100dp"
+                android:scaleType="fitCenter"
+                android:layout_marginTop="100dp"
+                android:clickable="true"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
         <LinearLayout
             android:id="@+id/info_linear_add_1"
             android:layout_width="match_parent"
@@ -44,14 +62,15 @@
                     android:hint="Click to get Location"
                     android:textAlignment="center"
                     android:textSize="18sp"
-                    android:padding="5dp"
+                    android:padding="10dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="20dp"
                     android:clickable="true"
                     style="@style/TextFieldTheme"
                     android:maxHeight="55dp"
-                    android:inputType="none"/>
+                    android:inputType="none"
+                    android:maxEms="8"/>
                 <TextView
                     android:id="@+id/add_pothole_time_stamp_f1"
                     android:layout_width="match_parent"
@@ -59,14 +78,15 @@
                     android:hint="Click to get TimeStamp"
                     android:textAlignment="center"
                     android:textSize="18sp"
-                    android:padding="5dp"
+                    android:padding="10dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="10dp"
                     android:clickable="true"
                     style="@style/TextFieldTheme"
                     android:maxHeight="55dp"
-                    android:inputType="none"/>
+                    android:inputType="none"
+                    android:maxEms="8"/>
                 <Spinner
                     android:id="@+id/danger_level_pothole_f1"
                     android:layout_width="match_parent"

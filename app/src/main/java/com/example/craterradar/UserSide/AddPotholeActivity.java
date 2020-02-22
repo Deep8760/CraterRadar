@@ -85,6 +85,7 @@ public class AddPotholeActivity extends AppCompatActivity implements View.OnClic
     DatabaseReference databaseReference;
     String uid,pothole_id;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,7 +105,7 @@ public class AddPotholeActivity extends AppCompatActivity implements View.OnClic
         storageReference = firebaseStorage.getReference();
 
 
-        potholeImage = findViewById(R.id.add_pothole_image_f1);
+        potholeImage = findViewById(R.id.add_pothole_image);
         timeStamp_text = findViewById(R.id.add_pothole_time_stamp_f1);
         location_text = findViewById(R.id.add_pothole_location_f1);
         description = findViewById(R.id.add_pothole_description_f1);
@@ -193,6 +194,7 @@ public class AddPotholeActivity extends AppCompatActivity implements View.OnClic
 
         uid = firebaseAuth.getUid();
         pothole_id = UUID.randomUUID().toString();
+
 
         final StorageReference str_ref = storageReference.child("Potholes/"+uid+"/"+pothole_id).child("Pothole_Image."+Imageextention);
         str_ref.putFile(pothole_image_uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>()
@@ -396,7 +398,7 @@ public class AddPotholeActivity extends AppCompatActivity implements View.OnClic
                 location_text.setText(lat.toString()+" "+lon.toString());
                 Location = location_text.getText().toString();
 
-                Log.i("Location: ",location_text.toString());
+                //Log.i("Location: ",location_text.toString());
 
             } catch (Exception e) {
                 //Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
@@ -510,11 +512,11 @@ public class AddPotholeActivity extends AppCompatActivity implements View.OnClic
             if(longRef.contentEquals("W"))
             {
                 d_Long = d_Long * -1;
-                Log.i("Lat with South :", String.valueOf(d_Long));
+                Log.i("LONG with WEST :", String.valueOf(d_Long));
             }
             else if(longRef.contentEquals("E"))
             {
-                Log.i("Lat With North", String.valueOf(d_Long));
+                Log.i("LONG With EAST", String.valueOf(d_Long));
             }
             return d_Long;
         }

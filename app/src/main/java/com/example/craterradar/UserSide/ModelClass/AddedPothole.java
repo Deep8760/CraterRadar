@@ -5,12 +5,12 @@ import android.location.Location;
 import com.google.android.gms.maps.model.LatLng;
 
 public class AddedPothole {
-    String latitude,longitude,dangerlevel,timestamp,description;
+    String potholeID,potholeImageURL,addedByUID,latitude,longitude,dangerlevel,timestamp,description;
 
-    public AddedPothole() {
-    }
-
-    public AddedPothole(String latitude,String longitude, String dangerlevel, String timestamp, String description) {
+    public AddedPothole(String potholeID,String potholeImageURL,String addedByUID,String latitude,String longitude, String dangerlevel, String timestamp, String description) {
+        this.potholeID = potholeID;
+        this.potholeImageURL = potholeImageURL;
+        this.addedByUID = addedByUID;
         this.latitude = latitude;
         this.longitude = longitude;
         this.dangerlevel = dangerlevel;
@@ -18,6 +18,29 @@ public class AddedPothole {
         this.description = description;
     }
 
+    public String getPotholeID() {
+        return potholeID;
+    }
+
+    public void setPotholeID(String potholeID) {
+        this.potholeID = potholeID;
+    }
+
+    public String getPotholeImageURL() {
+        return potholeImageURL;
+    }
+
+    public void setPotholeImageURL(String potholeImageURL) {
+        this.potholeImageURL = potholeImageURL;
+    }
+
+    public String getAddedByUID() {
+        return addedByUID;
+    }
+
+    public void setAddedByUID(String addedByUID) {
+        this.addedByUID = addedByUID;
+    }
 
     public String getLatitude() {
         return latitude;

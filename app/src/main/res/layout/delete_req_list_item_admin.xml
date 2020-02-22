@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/AppPrimary"
+        android:background="@drawable/round_edittext"
+        android:layout_margin="15dp"
+        android:padding="10dp">
+        <TextView
+            android:id="@+id/pothole_id_list_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Pothole ID"
+            android:textColor="@color/PrimaryFontColor"
+            android:textColorHint="@color/PrimaryFontColor"
+            android:padding="10dp"
+            android:textSize="16sp"
+            android:layout_margin="5dp"/>
+    </LinearLayout>
+
+</LinearLayout>

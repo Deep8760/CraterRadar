@@ -71,7 +71,7 @@ public class Route_History_Frag extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar();
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        historyArrayList.clear();
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -87,6 +87,7 @@ public class Route_History_Frag extends Fragment {
                     routeHistoryListAdapter =new RouteHistoryListAdapter(historyArrayList,context);
                     recyclerView.setAdapter(routeHistoryListAdapter);
                     routeHistoryListAdapter.notifyDataSetChanged();
+                    routeHistoryListAdapter.setOnClickListner(onClickListener);
                     if(!historyArrayList.isEmpty())
                     {
                         recyclerView.setVisibility(View.VISIBLE);
@@ -103,4 +104,12 @@ public class Route_History_Frag extends Fragment {
 
 
     }
+    public View.OnClickListener onClickListener = new View.OnClickListener()
+    {
+        @Override
+        public void onClick(View view) {
+            RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
+            //int position = viewHolder.getAdapterPosition();
+        }
+    };
 }

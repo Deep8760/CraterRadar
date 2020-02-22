@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profileImage"
             android:layout_width="200dp"
             android:layout_height="200dp"
@@ -20,9 +20,12 @@
             app:layout_constraintBottom_toTopOf="@+id/profileText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/AppPrimary"
+            android:clickable="true"/>
 
-        <Button
+        <!--<Button
             android:id="@+id/profileImageButton"
             android:layout_width="200dp"
             android:layout_height="200dp"
@@ -30,7 +33,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/profileImage"
             app:layout_constraintEnd_toEndOf="@+id/profileImage"
             app:layout_constraintStart_toStartOf="@+id/profileImage"
-            app:layout_constraintTop_toTopOf="@+id/profileImage" />
+            app:layout_constraintTop_toTopOf="@+id/profileImage" />-->
 
         <TextView
             android:id="@+id/profileText"

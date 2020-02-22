@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/AppPrimary">
+    android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,6 +13,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="@drawable/round_edittext"
+        android:backgroundTint="@color/AppPrimary"
         android:padding="10sp"
         android:layout_margin="15sp">
         <de.hdodenhof.circleimageview.CircleImageView
@@ -24,7 +24,7 @@
             android:src="@drawable/user_2"
             android:scaleType="centerCrop"
             app:civ_border_width="1dp"
-            app:civ_border_color="#FF000000"/>
+            app:civ_border_color="@color/PrimaryFontColor"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -36,8 +36,8 @@
                 android:layout_height="wrap_content"
                 android:hint="User name"
                 android:textSize="20sp"
-                android:textColor="@color/SecondaryFontcolor"
-                android:textColorHint="@color/SecondaryFontcolor"
+                android:textColor="@color/PrimaryFontColor"
+                android:textColorHint="@color/PrimaryFontColor"
                 android:gravity="center"
                 android:layout_weight="1"/>
             <TextView
@@ -46,8 +46,8 @@
                 android:layout_height="wrap_content"
                 android:hint="User ID"
                 android:textSize="12sp"
-                android:textColor="@color/SecondaryFontcolor"
-                android:textColorHint="@color/SecondaryFontcolor"
+                android:textColor="@color/PrimaryFontColor"
+                android:textColorHint="@color/PrimaryFontColor"
                 android:gravity="center"
                 android:layout_weight="1"/>
 
